@@ -25,14 +25,14 @@ var ctrl = {
 	};
 var templ = [
 		'<span id="playerArea" style="display: none;"></span>',
-		'<span style="white-space: nowrap;padding: 5px 35px;border-radius: 100px;border: solid 1px #eee;box-shadow: 2px 3px 5px #ccc;">',
-			'<img id="ctrlRandom" class="ctrlBtn" style="width: 48px;border-radius: 100px;margin: 0 12px;cursor: pointer;filter: grayscale(100%);" src="',ctrl.random,'" onclick="control(\'random\')">',
-			'<img id="ctrlStop" class="ctrlBtn" style="width: 48px;border-radius: 100px;margin: 0 12px;cursor: pointer;display: none;" src="',ctrl.stop,'" onclick="control(\'stop\')">',
-			'<img id="ctrlPrev" class="ctrlBtn" style="width: 48px;border-radius: 100px;cursor: pointer;display: none;" src="',ctrl.prev,'" onclick="control(\'prev\')">',
+		'<span style="display:flex;flex-direction: row;align-items: center;justify-content: space-around;width: fit-content;white-space: nowrap;padding: 5px 35px;border-radius: 100px;border: solid 1px #eee;box-shadow: 2px 3px 5px #ccc;">',
+			'<img id="ctrlRandom" class="ctrlBtn" style="width: 48px;height: 48px;border-radius: 100px;margin: 0 12px;cursor: pointer;filter: grayscale(100%);" src="',ctrl.random,'" onclick="control(\'random\')">',
+			'<img id="ctrlStop" class="ctrlBtn" style="width: 48px;height: 48px;border-radius: 100px;margin: 0 12px;cursor: pointer;display: none;" src="',ctrl.stop,'" onclick="control(\'stop\')">',
+			'<img id="ctrlPrev" class="ctrlBtn" style="width: 48px;height: 48px;border-radius: 100px;cursor: pointer;display: none;" src="',ctrl.prev,'" onclick="control(\'prev\')">',
 			'<img id="ctrlPlay" class="ctrlBtn" style="width: 64px;border-radius: 100px;margin: 2px 12px;cursor: pointer;filter: grayscale(100%);" src="',ctrl.play,'" onclick="control(\'play\')">',
 			'<img id="ctrlPause" class="ctrlBtn" style="width: 64px;border-radius: 100px;margin: 2px 12px;cursor: pointer;display: none;" src="',ctrl.pause,'" onclick="control(\'pause\')">',
-			'<img id="ctrlNext" class="ctrlBtn" style="width: 48px;border-radius: 100px;cursor: pointer;display: none;" src="',ctrl.next,'" onclick="control(\'next\')">',
-			'<img id="ctrlReplay" class="ctrlBtn" style="width: 48px;border-radius: 100px;margin: 0 12px;cursor: pointer;filter: grayscale(100%);" src="',ctrl.replay,'" onclick="control(\'replay\')">',
+			'<img id="ctrlNext" class="ctrlBtn" style="width: 48px;height: 48px;border-radius: 100px;cursor: pointer;display: none;" src="',ctrl.next,'" onclick="control(\'next\')">',
+			'<img id="ctrlReplay" class="ctrlBtn" style="width: 48px;height: 48px;border-radius: 100px;margin: 0 12px;cursor: pointer;filter: grayscale(100%);" src="',ctrl.replay,'" onclick="control(\'replay\')">',
 		'</span>'
 	];
 document.write(templ.join(""));
