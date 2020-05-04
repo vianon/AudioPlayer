@@ -4,6 +4,7 @@
 # Sample
 在网页源码中直接插入代码：<br>
 <pre><script src="AudioPlayer.js?url=http://xxxxxxxx.mp3"></script></pre>
+<pre><script src="AudioPlayer.js?file=songs"></script></pre>
 
 # Readme
 可使用三个参数，按下列顺序优先：<br>
