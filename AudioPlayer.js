@@ -43,7 +43,7 @@ function receiveData(res) {
 	var r = src.substr(1).match(new RegExp('(^|&?)' + res + '=([^&]*)(&|$)', 'i'));
 	var result = null;
 	if (r && src) {
-		result = decodeURI(r[2]);
+		result = unescape(decodeURI(r[2]));
 		return result;
 	}
 }
