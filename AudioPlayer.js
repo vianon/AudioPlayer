@@ -1,10 +1,10 @@
 "use strict";
 
 /*
- * 可使用三个参数：url, file, id
- * url: 单文件播放，直接填入音频文件地址；
- * file: 外部JSON文件，放在同级目录；
- * id: 读取数据库。
+ * 可使用三个参数，按下列顺序优先：
+ * url: 单文件播放，直接填入音频文件地址
+ * file: 外部JSON文件，放在同级目录
+ * id: 数据库读取接口
  */
 
 var playList = {};
@@ -48,7 +48,7 @@ function receiveData(res) {
 	}
 }
 
-function ajax(res) {
+function loadFile(res) {
 	var xmlHttp = null;
 	if (window.ActiveXObject) {
 		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
@@ -81,7 +81,6 @@ function ajax(res) {
 }
 
 function loadAudio(res) {
-	playing = 0;
 	document.getElementById("ctrlPlay").style.filter = "grayscale(100%)";
 	document.getElementById("ctrlStop").style.filter = "grayscale(100%)";
 	var p = [
@@ -91,14 +90,17 @@ function loadAudio(res) {
 	document.getElementById("playerArea").innerHTML = p.join("");
 	player = document.getElementById("audioPlay");
 	player.onplay = function() {
+		playing = 1;
 		document.getElementById("ctrlPlay").style.display = "none";
 		document.getElementById("ctrlPause").style.display = "inline";
 	};
 	player.onpause=function() {
+		playing = 2;
 		document.getElementById("ctrlPlay").style.display = "inline";
 		document.getElementById("ctrlPause").style.display = "none";
 	};
 	player.onstop=function() {
+		playing = 0;
 		document.getElementById("ctrlPlay").style.display = "inline";
 		document.getElementById("ctrlPause").style.display = "none";
 	};
@@ -109,7 +111,7 @@ function loadAudio(res) {
 		changeAudio(1);
 	};
 	player.oncanplay = function() {
-		playing = 1;
+		playing = 2;
 		document.getElementById("ctrlPlay").style.filter = "grayscale(0)";
 		document.getElementById("ctrlStop").style.filter = "grayscale(0)";
 		player.play();
@@ -121,7 +123,7 @@ if (receiveData("url")) {
 	document.getElementById("ctrlStop").style.display = "inline";
 	loadAudio(0);
 } else if (receiveData("file")) {
-	ajax(receiveData("file")+".json");
+	loadFile(receiveData("file")+".json");
 } else if (receiveData("id")) {
 	console.log(receiveData("id"));
 	// ======================================================================================
@@ -130,6 +132,7 @@ if (receiveData("url")) {
 }
 
 function changeAudio(res) {
+	playing = 0;
 	nowPlay = nowPlay + res;
 	if (nowPlay<0) {
 		if (replay) {
@@ -137,7 +140,7 @@ function changeAudio(res) {
 			loadAudio(nowPlay);
 		} else {
 			nowPlay = 0;
-			return false;
+			return;
 		}
 	}
 	if (nowPlay>=playList.now.length) {
@@ -146,7 +149,7 @@ function changeAudio(res) {
 			loadAudio(nowPlay);
 		} else {
 			nowPlay = playList.now.length - 1;
-			return false;
+			return;
 		}
 	}
 	loadAudio(nowPlay);
@@ -177,25 +180,21 @@ function randomRank(tmp) {
 
 function control(res) {
 	if (playList.now.length<=0) {
-		return false;
+		return;
 	}
 	switch (res) {
 		case "play":
 			if (playing===2) {
-				playing = 1;
 				player.play();
+				return;
 			}
-			if (playing===0) {
-				loadAudio(nowPlay);
-			}
+			loadAudio(nowPlay);
 			break;
 		case "pause":
-			playing = 2;
 			player.pause();
 			break;
 		case "stop":
 			if (playing===1) {
-				playing = 0;
 				player.pause();
 			}
 			break;
